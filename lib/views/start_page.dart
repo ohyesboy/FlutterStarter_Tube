@@ -24,11 +24,7 @@ class _StartPageState extends TubeBasePageState<StartPage> {
 
   @override
   Widget buildLeftHeaderButton(BuildContext context) {
-    return IconButton(
-        onPressed: () {
-         
-        },
-        icon: Icon(Icons.menu));
+    return IconButton(onPressed: () {}, icon: Icon(Icons.menu));
   }
 
   @override
@@ -84,45 +80,53 @@ class _StartPageState extends TubeBasePageState<StartPage> {
       elevation: 8,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12))),
-      child: Column(children: [
-        AspectRatio(
-          aspectRatio: 9 / 5,
-          child: InkWell(
-            onTap: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (_)=>  OtherPage(item: item,)));
-            },
-            child: CachedNetworkImage(
-                imageUrl: item.imgUrl,
-                placeholder: (context, url) => const CircularProgressIndicator(),
-                imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.6),
-                              spreadRadius: 2,
-                              blurRadius: 4,
-                              offset: Offset(0, 2),
-                            )
-                          ],
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          )),
-                    )),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          AspectRatio(
+            aspectRatio: 9 / 5,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (_) => OtherPage(
+                              item: item,
+                            )));
+              },
+              child: CachedNetworkImage(
+                  imageUrl: item.imgUrl,
+                  placeholder: (context, url) =>
+                      Center( child: const CircularProgressIndicator()),
+                  imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(image: imageProvider),
+                            borderRadius:BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(color: Colors.black, spreadRadius: 2,blurRadius: 4,offset: Offset(0, 2))
+                            ]
+                            ),
+                      )),
+            ),
           ),
-        ),
-        Row(
-          children: [
-            Column(
-              children: [
-                Text(item.channelName),
-                Text(item.title),
-              ],
-            )
-          ],
-        )
-      ]),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment:CrossAxisAlignment.start,
+                  children: [
+                    Text(item.channelName, style: kMediumLightText18,),
+                    Text(item.title, style: kRegularLightText14, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                  ],
+                ),
+              ),
+              Utils.paddingW(12),
+              Icon(Icons.arrow_forward_ios, size: 16,)
+            ],
+          )
+        ]),
+      ),
     );
   }
 }
