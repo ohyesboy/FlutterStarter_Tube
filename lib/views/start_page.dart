@@ -14,10 +14,23 @@ class StartPage extends TubeBasePage {
 
 class _StartPageState extends TubeBasePageState<StartPage> {
   late StartPgaeVM vm;
+  ScrollController _list= new ScrollController();
+  late double lastScrollPos = 0;
+  late String lbl = '';
   final txtSearch = TextEditingController();
   @override
   void initState() {
+    
     super.initState();
+    _list.addListener(()async {
+      lbl = lastScrollPos < _list.position.pixels?"up":"down";
+   
+      if( _list.position.maxScrollExtent - _list.position.pixels <20 
+        && lastScrollPos > _list.position.pixels){
+        await vm.addMore();
+      }
+      lastScrollPos = _list.position.pixels;
+    });
     vm = StartPgaeVM(setState: setState);
     widget.title = "TUBE PLAER!";
   }
@@ -33,8 +46,13 @@ class _StartPageState extends TubeBasePageState<StartPage> {
       padding: EdgeInsets.all(10),
       child: Column(children: [
         buildSearch(),
+        Text(lbl),
         Utils.paddingH(10),
-        Expanded(child: buildList())
+        Expanded(child: buildList()),
+        Utils.paddingH(20),
+        Visibility(
+          visible: vm.isBusyLoadingMore,
+          child: CircularProgressIndicator(color: kLightColor,))
       ]),
     );
   }
@@ -68,6 +86,7 @@ class _StartPageState extends TubeBasePageState<StartPage> {
 
   Widget buildList() {
     return ListView.builder(
+      controller: _list,
       itemBuilder: (context, index) => buildListItem(context, index),
       itemCount: vm.items.length,
     );

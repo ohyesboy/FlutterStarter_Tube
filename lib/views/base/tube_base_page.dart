@@ -27,8 +27,14 @@ class TubeBasePageState<T extends TubeBasePage> extends State<T> {
       backgroundColor: kPageBackgroundColor,
       body: buildBody(),
     );
+    
   }
 
+  setState2(){
+    setState(() {
+      
+    });
+  }
   Widget buildLeftHeaderButton(BuildContext context) {
     return Icon(Icons.menu);
   }
