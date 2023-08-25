@@ -5,12 +5,19 @@ import 'package:mytube1/views/base/base_vm.dart';
 class StartPgaeVM extends BaseVM {
   List<Item> items = [];
   search(String value) async {
-    items.add(Item(name: value, age: 10));
-    items.add(Item(name: 'Test', age: 13));
+    items = [];
+
+    for (var i = 0; i < 5; i++) {
+      items.add(Item(
+          title: '埃及人先婚後戀？沒有結婚證去酒店開不了房！一夫多妻合法但卻很少有人這麼做？｜埃及Nancy',
+          channelName: 'Nancy',
+          imgUrl:
+              'https://i.ytimg.com/vi/JufMpZwNbTg/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAb2yWONdFlxUOELS6vDwj5IlXyNA'));
+    }
+
     notifyListeners();
   }
 
-  StartPgaeVM(void Function(VoidCallback fn) setState) :super(setState){
-    
-  }
+  StartPgaeVM({required setState}) : super(setState: setState) {}
 }
+

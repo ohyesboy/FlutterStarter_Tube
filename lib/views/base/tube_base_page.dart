@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:mytube1/app_styles.dart';
 
 class TubeBasePage extends StatefulWidget {
-  const TubeBasePage({super.key});
-
+  TubeBasePage({super.key});
+  String title = "BASE TITLE";
   @override
   State<TubeBasePage> createState() => TubeBasePageState();
 }
 
 class TubeBasePageState<T extends TubeBasePage> extends State<T> {
-  String title = "BASE TITLE";
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          title,
+          widget.title,
           style: kPageHeaderTextStyle,
         ),
         elevation: 0,

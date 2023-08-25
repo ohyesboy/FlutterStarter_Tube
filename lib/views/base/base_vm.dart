@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 class BaseVM extends ChangeNotifier {
-  BaseVM(void Function(VoidCallback fn) setState) {
+  void Function(VoidCallback fn) setState;
+  BaseVM({required this.setState}) {
     addListener(() => setState(
           () {},
         ));

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'My Tube1 title',
       theme: ThemeData.dark(),
-      home: const StartPage(),
+      home: StartPage(),
     );
   }
 }
