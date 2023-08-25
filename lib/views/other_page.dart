@@ -19,7 +19,7 @@ class _OtherPageState extends TubeBasePageState<OtherPage> {
 
   @override
   buildBody() {
-    return Text('other page $string2  ');
+    return Text('other page');
   }
 
   @override
@@ -30,4 +30,5 @@ class _OtherPageState extends TubeBasePageState<OtherPage> {
         },
         icon: Icon(Icons.arrow_back));
   }
+
 }

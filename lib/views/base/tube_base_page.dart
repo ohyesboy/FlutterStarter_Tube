@@ -24,6 +24,7 @@ class TubeBasePageState<T extends TubeBasePage> extends State<T> {
         leading: buildLeftHeaderButton(context),
         backgroundColor: Colors.transparent,
       ),
+      backgroundColor: kPageBackgroundColor,
       body: buildBody(),
     );
   }
