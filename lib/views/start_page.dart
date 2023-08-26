@@ -14,21 +14,19 @@ class StartPage extends TubeBasePage {
 
 class _StartPageState extends TubeBasePageState<StartPage,StartPgaeVM> {
 
-  ScrollController _list = new ScrollController();
-  late double lastScrollPos = 0;
-  late String lbl = '';
+  final  _list = new ScrollController();
   final txtSearch = TextEditingController();
   @override
   void initState() {
     super.initState();
     _list.addListener(() async {
-      lbl = lastScrollPos < _list.position.pixels ? "up" : "down";
-
+      vm.lbl = vm.lastScrollPos < _list.position.pixels ? "up" : "down";
+      setState2();
       if (_list.position.maxScrollExtent - _list.position.pixels < 20 &&
-          lastScrollPos > _list.position.pixels) {
+          vm.lastScrollPos > _list.position.pixels) {
         await vm.addMore();
       }
-      lastScrollPos = _list.position.pixels;
+      vm.lastScrollPos = _list.position.pixels;
     });
     vm = StartPgaeVM(setState: setState);
     vm.title = "TUBE PLAER!";
@@ -46,7 +44,7 @@ class _StartPageState extends TubeBasePageState<StartPage,StartPgaeVM> {
       padding: EdgeInsets.all(10),
       child: Column(children: [
         buildSearch(),
-        Text(lbl),
+        Text(vm.lbl),
         Utils.paddingH(10),
         Expanded(child: buildList()),
         Utils.paddingH(20),

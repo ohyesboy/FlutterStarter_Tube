@@ -5,6 +5,10 @@ import 'package:mytube1/views/base/base_vm.dart';
 class StartPgaeVM extends BaseVM {
   bool isBusyLoadingMore = false;
   List<Item> items = [];
+  double lastScrollPos = 0;
+  String lbl = 'init';
+
+
   search(String value) async {
     items = [];
 
