@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mytube1/app_styles.dart';
-import 'package:mytube1/main.dart';
 import 'package:mytube1/utils.dart';
 import 'package:mytube1/views/base/tube_base_page.dart';
 import 'package:mytube1/views/bee_page.dart';
@@ -13,8 +12,8 @@ class StartPage extends TubeBasePage {
   State<StartPage> createState() => _StartPageState() as State<StartPage>;
 }
 
-class _StartPageState extends TubeBasePageState<StartPage> {
-  late StartPgaeVM vm;
+class _StartPageState extends TubeBasePageState<StartPage,StartPgaeVM> {
+
   ScrollController _list = new ScrollController();
   late double lastScrollPos = 0;
   late String lbl = '';
@@ -32,7 +31,7 @@ class _StartPageState extends TubeBasePageState<StartPage> {
       lastScrollPos = _list.position.pixels;
     });
     vm = StartPgaeVM(setState: setState);
-    widget.title = "TUBE PLAER!";
+    vm.title = "TUBE PLAER!";
   }
 
   @override

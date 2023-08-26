@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:mytube1/views/base/base_vm.dart';
-import 'package:mytube1/views/base/tube_base_page.dart';
 
+// ignore_for_file: must_be_immutable
+
+import 'package:flutter/material.dart';
+import 'package:mytube1/views/base/tube_base_page.dart';
+import 'package:mytube1/views/other_page_vm.dart';
 import '../models/item.dart';
-import 'start_page_vm.dart';
 
 class OtherPage extends TubeBasePage {
   Item item;
@@ -11,28 +12,22 @@ class OtherPage extends TubeBasePage {
   OtherPage({required this.item});
 
   @override
-  State<OtherPage> createState() => _OtherPageState() as State<OtherPage>;
+  State<OtherPage> createState() => _OtherPageState();
 }
 
-class _OtherPageState extends TubeBasePageState<OtherPage> {
-  late OtherPageVM vm;
+class _OtherPageState extends TubeBasePageState<OtherPage, OtherPageVM> {
 
   @override
   void initState() {
     super.initState();
     vm = OtherPageVM(setState: setState);
     vm.item = widget.item;
-    widget.title = 'Other page';
-    widget.useLeftBackButton = true;
+    vm.title = 'Other page';
+    vm.useLeftBackButton = true;
   }
 
   @override
   buildBody() {
     return Text(widget.item.title);
   }
-}
-
-class OtherPageVM extends BaseVM {
-  Item? item;
-  OtherPageVM({required setState}) : super(setState: setState) {}
 }

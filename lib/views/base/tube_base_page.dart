@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mytube1/app_styles.dart';
+import 'package:mytube1/views/base/base_vm.dart';
 
 class TubeBasePage extends StatefulWidget {
   TubeBasePage({super.key});
-  String title = "BASE TITLE";
-  bool useLeftBackButton = false;
+  
   @override
   State<TubeBasePage> createState() => TubeBasePageState();
 }
 
-class TubeBasePageState<T extends TubeBasePage> extends State<T> {
+class TubeBasePageState<T extends TubeBasePage, Tvm extends BaseVM> extends State<T> {
+
+  late Tvm vm;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.title,
+          vm.title,
           style: kPageHeaderTextStyle,
         ),
         elevation: 0,
@@ -36,7 +38,7 @@ class TubeBasePageState<T extends TubeBasePage> extends State<T> {
   }
 
   Widget buildLeftHeaderButton(BuildContext context) {
-    if(widget.useLeftBackButton)
+    if(vm.useLeftBackButton)
       return IconButton(
         onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back)); 
     return Icon(Icons.menu);
