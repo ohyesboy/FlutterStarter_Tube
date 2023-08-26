@@ -4,6 +4,7 @@ import 'package:mytube1/app_styles.dart';
 import 'package:mytube1/main.dart';
 import 'package:mytube1/utils.dart';
 import 'package:mytube1/views/base/tube_base_page.dart';
+import 'package:mytube1/views/bee_page.dart';
 import 'package:mytube1/views/other_page.dart';
 import 'package:mytube1/views/start_page_vm.dart';
 
@@ -14,19 +15,18 @@ class StartPage extends TubeBasePage {
 
 class _StartPageState extends TubeBasePageState<StartPage> {
   late StartPgaeVM vm;
-  ScrollController _list= new ScrollController();
+  ScrollController _list = new ScrollController();
   late double lastScrollPos = 0;
   late String lbl = '';
   final txtSearch = TextEditingController();
   @override
   void initState() {
-    
     super.initState();
-    _list.addListener(()async {
-      lbl = lastScrollPos < _list.position.pixels?"up":"down";
-   
-      if( _list.position.maxScrollExtent - _list.position.pixels <20 
-        && lastScrollPos > _list.position.pixels){
+    _list.addListener(() async {
+      lbl = lastScrollPos < _list.position.pixels ? "up" : "down";
+
+      if (_list.position.maxScrollExtent - _list.position.pixels < 20 &&
+          lastScrollPos > _list.position.pixels) {
         await vm.addMore();
       }
       lastScrollPos = _list.position.pixels;
@@ -37,7 +37,8 @@ class _StartPageState extends TubeBasePageState<StartPage> {
 
   @override
   Widget buildLeftHeaderButton(BuildContext context) {
-    return IconButton(onPressed: () {}, icon: Icon(Icons.menu));
+    return IconButton(
+        onPressed: () => navigateToPage(()=> BeePage()), icon: Icon(Icons.menu));
   }
 
   @override
@@ -51,8 +52,10 @@ class _StartPageState extends TubeBasePageState<StartPage> {
         Expanded(child: buildList()),
         Utils.paddingH(20),
         Visibility(
-          visible: vm.isBusyLoadingMore,
-          child: CircularProgressIndicator(color: kLightColor,))
+            visible: vm.isBusyLoadingMore,
+            child: CircularProgressIndicator(
+              color: kLightColor,
+            ))
       ]),
     );
   }
@@ -105,26 +108,22 @@ class _StartPageState extends TubeBasePageState<StartPage> {
           AspectRatio(
             aspectRatio: 9 / 5,
             child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (_) => OtherPage(
-                              item: item,
-                            )));
-              },
+              onTap: () => navigateToPage(() => OtherPage(item: item)),
               child: CachedNetworkImage(
                   imageUrl: item.imgUrl,
                   placeholder: (context, url) =>
-                      Center( child: const CircularProgressIndicator()),
+                      Center(child: const CircularProgressIndicator()),
                   imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                             image: DecorationImage(image: imageProvider),
-                            borderRadius:BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10),
                             boxShadow: [
-                              BoxShadow(color: Colors.black, spreadRadius: 2,blurRadius: 4,offset: Offset(0, 2))
-                            ]
-                            ),
+                              BoxShadow(
+                                  color: Colors.black,
+                                  spreadRadius: 2,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2))
+                            ]),
                       )),
             ),
           ),
@@ -133,15 +132,26 @@ class _StartPageState extends TubeBasePageState<StartPage> {
             children: [
               Expanded(
                 child: Column(
-                  crossAxisAlignment:CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(item.channelName, style: kMediumLightText18,),
-                    Text(item.title, style: kRegularLightText14, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                    Text(
+                      item.channelName,
+                      style: kMediumLightText18,
+                    ),
+                    Text(
+                      item.title,
+                      style: kRegularLightText14,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
               ),
               Utils.paddingW(12),
-              Icon(Icons.arrow_forward_ios, size: 16,)
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              )
             ],
           )
         ]),
